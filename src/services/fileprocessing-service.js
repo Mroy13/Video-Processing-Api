@@ -1,0 +1,43 @@
+const StatusCode=require('http-status-codes');
+const {ServerConfig}=require('../config')
+const path=require('path');
+const fs=require('fs');
+
+const Apperror=require('../utils/error/App-error');
+const ffmpeg=require('../config/ffmpeg-config');
+const createUniqueFileName=require('../utils/helpers/create-File-name');
+
+const outputDirectory = path.join(__dirname, '..', 'processedFiles'); 
+
+
+ function convertFile(filePath,originalName,fileType){
+    try{
+    const inputFile=ServerConfig.inputFilePrefix+filePath;
+    const outputFileName=createUniqueFileName(originalName,fileType);
+    const outputFilePath = path.join(outputDirectory,outputFileName);
+    return new Promise((res,rej)=>{
+        ffmpeg()
+        .input(inputFile)
+        .on('error',(err)=>{
+            fs.unlinkSync(filePath);
+            rej(new Apperror("unable to process the file",StatusCode.BAD_REQUEST));
+    
+        })
+        .on('end',()=>{
+            fs.unlinkSync(filePath);
+            res(outputFilePath);
+        })
+        .saveToFile(outputFilePath)
+    })
+} 
+catch(error){
+   fs.unlinkSync(filePath);
+   throw new Apperror("serverside problem",StatusCode.INTERNAL_SERVER_ERROR);
+}
+   
+}
+
+module.exports={
+   convertFile,
+
+}

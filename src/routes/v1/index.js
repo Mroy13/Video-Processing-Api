@@ -1,7 +1,7 @@
 const express=require('express');
 const { infoController} = require('../../controllers');
-const Routes=require('./routesname-routes');
+const Routes=require('./fileprocessing-routes');
 const router=express.Router();
-router.use('/',Routes);
+router.use('/processFile',Routes);
 router.get('/info',infoController.info);
 module.exports=router;

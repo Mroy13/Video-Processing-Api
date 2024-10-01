@@ -1,3 +1,3 @@
 module.exports={
-    servicenameService:require('./servicename-services')
+    fileprocessingService:require('./fileprocessing-service')
 }
