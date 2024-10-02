@@ -8,4 +8,14 @@ function createUniqueFileName(originalFileName, fileType) {
     return uniqueFileName
 }
 
-module.exports=createUniqueFileName;
+function updateFileName(originalFileName) {
+   
+    const uniqueFileName = `${Date.now()}-${originalFileName}`;
+
+    return uniqueFileName
+}
+
+module.exports={
+    createUniqueFileName,
+    updateFileName
+}

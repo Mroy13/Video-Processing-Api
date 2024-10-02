@@ -31,7 +31,38 @@ async function convertFile(req, res) {
 
 }
 
+async function reSizeFile(req,res){
+    const width=req.query.width;
+    const height=req.query.height;
+    
+    try {
+        const result = await fileprocessingService.reSizeFile(req.file.path, req.file.originalname, width, height);
+
+        res.download(result, (err) => {
+            if (err) {
+                return res
+                    .status(StatusCodes.INTERNAL_SERVER_ERROR)
+                    .json({
+                        message: 'download failed',
+                        error: err.message,
+                    });
+            }
+            else {
+                fs.unlinkSync(result);
+            }
+        });
+
+    }
+    catch (error) {
+        ErrorResponse.message = error.message;
+        return res
+            .status(error.statusCode)
+            .json(ErrorResponse);
+    }
+}
+
 module.exports = {
     convertFile,
+    reSizeFile
 
 }
