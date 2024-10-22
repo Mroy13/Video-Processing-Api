@@ -101,4 +101,20 @@ You can also check the Postman documentation for detailed endpoint information:
 
 ---
 
-Feel free to modify any section according to your specific project requirements. This README provides a clear overview of the project, its setup instructions, and details about the API endpoints.
+## To-Do Features
+
+1. **Input Validation**  
+   - Implement validation for video formats, dimensions, and filter parameters.
+   - Add error handling for invalid inputs.
+
+2. **Upload Video to Cloud**  
+   - Integrate **Cloudinary** for video uploads.
+   - Return Cloudinary URL for uploaded/processed videos.
+
+3. **Additional Filter Options**  
+   - Add more filters (grayscale, sepia, blur, brightness/contrast, watermark, etc.).
+   - Support combining multiple filters in one request.
+
+4. **User Authentication (Sign-in/Sign-up)**  
+   - Implement user sign-up and sign-in using JWT/OAuth.
+   - Track user-specific video history and management.
